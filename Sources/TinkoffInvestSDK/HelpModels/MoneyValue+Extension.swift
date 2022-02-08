@@ -10,7 +10,7 @@ import Foundation
 public extension MoneyValue {
     var asMoneyAmount: MoneyAmount {
         let value = Decimal(units) + Decimal(sign: nano.signum() == -1 ? .minus : .plus , exponent: -9, significand: Decimal(nano))
-        guard let currency = MoneyCurrency(rawValue: currency) else {
+        guard let currency = MoneyCurrency(rawValue: currency.uppercased()) else {
             assertionFailure("Did not recognize currency \(currency)")
             return .init(currency: .rub, value: value)
         }
