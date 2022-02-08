@@ -12,12 +12,17 @@ import GRPC
 import CombineGRPC
 
 public protocol OrdersService: AnyObject {
-
+    ///Метод выставления заявки.
     func postOrder(request: PostOrderRequest) -> AnyPublisher<PostOrderResponse, RPCError>
 
+    ///Метод получения списка активных заявок по счёту.
     func getOrders(request: GetOrdersRequest) -> AnyPublisher<GetOrdersResponse, RPCError>
 
-    func cancelOrders(request: CancelOrderRequest) -> AnyPublisher<CancelOrderResponse, RPCError>
+    ///Метод получения статуса торгового поручения.
+    func getOrderState(request: GetOrderStateRequest) -> AnyPublisher<OrderState, RPCError>
+
+    ///Метод отмены биржевой заявки.
+    func cancelOrder(request: CancelOrderRequest) -> AnyPublisher<CancelOrderResponse, RPCError>
 }
 
 final class GRPCOrdersService: BaseCombineGRPCService, OrdersService {
@@ -36,7 +41,11 @@ final class GRPCOrdersService: BaseCombineGRPCService, OrdersService {
         executor.call(client.getOrders)(request)
     }
 
-    func cancelOrders(request: CancelOrderRequest) -> AnyPublisher<CancelOrderResponse, RPCError> {
+    func getOrderState(request: GetOrderStateRequest) -> AnyPublisher<OrderState, RPCError> {
+        executor.call(client.getOrderState)(request)
+    }
+
+    func cancelOrder(request: CancelOrderRequest) -> AnyPublisher<CancelOrderResponse, RPCError> {
         executor.call(client.cancelOrder)(request)
     }
 }
