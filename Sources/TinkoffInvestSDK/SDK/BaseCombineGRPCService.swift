@@ -23,8 +23,7 @@ class BaseCombineGRPCService {
     private lazy var defaulCallOptions = CurrentValueSubject<CallOptions, Never>(
         CallOptions(
             customMetadata: [
-                "Authorization": "Bearer \(tokenProvider.provideToken())",
-                "x-app-name": "JohnReeze.TinkoffInvestSwiftSDK"
+                "Authorization": "Bearer \(tokenProvider.provideToken())"
             ]
         )
     ).eraseToAnyPublisher()
