@@ -266,7 +266,7 @@ public struct OrderTrades {
   ///Идентификатор торгового поручения
   public var orderID: String = String()
 
-  ///Дата и время создания сообщения
+  ///Дата и время создания сообщения в часовом поясе UTC.
   public var createdAt: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _createdAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_createdAt = newValue}
@@ -298,7 +298,7 @@ public struct OrderTrade {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  ///Дата и время совершения сделки по времени биржи
+  ///Дата и время совершения сделки в часовом поясе UTC.
   public var dateTime: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _dateTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_dateTime = newValue}

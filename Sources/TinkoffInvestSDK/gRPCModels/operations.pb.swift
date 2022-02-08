@@ -723,7 +723,7 @@ public struct PortfolioPosition {
   /// Clears the value of `quantity`. Subsequent reads from it will return its default value.
   public mutating func clearQuantity() {_uniqueStorage()._quantity = nil}
 
-  ///Средняя цена лота в позиции
+  ///Средневзвешенная цена позиции
   public var averagePositionPrice: MoneyValue {
     get {return _storage._averagePositionPrice ?? MoneyValue()}
     set {_uniqueStorage()._averagePositionPrice = newValue}
@@ -773,6 +773,26 @@ public struct PortfolioPosition {
   /// Clears the value of `currentPrice`. Subsequent reads from it will return its default value.
   public mutating func clearCurrentPrice() {_uniqueStorage()._currentPrice = nil}
 
+  ///Средняя цена лота в позиции по методу FIFO
+  public var averagePositionPriceFifo: MoneyValue {
+    get {return _storage._averagePositionPriceFifo ?? MoneyValue()}
+    set {_uniqueStorage()._averagePositionPriceFifo = newValue}
+  }
+  /// Returns true if `averagePositionPriceFifo` has been explicitly set.
+  public var hasAveragePositionPriceFifo: Bool {return _storage._averagePositionPriceFifo != nil}
+  /// Clears the value of `averagePositionPriceFifo`. Subsequent reads from it will return its default value.
+  public mutating func clearAveragePositionPriceFifo() {_uniqueStorage()._averagePositionPriceFifo = nil}
+
+  ///Количество лотов в портфеле
+  public var quantityLots: Quotation {
+    get {return _storage._quantityLots ?? Quotation()}
+    set {_uniqueStorage()._quantityLots = newValue}
+  }
+  /// Returns true if `quantityLots` has been explicitly set.
+  public var hasQuantityLots: Bool {return _storage._quantityLots != nil}
+  /// Clears the value of `quantityLots`. Subsequent reads from it will return its default value.
+  public mutating func clearQuantityLots() {_uniqueStorage()._quantityLots = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -818,6 +838,414 @@ public struct PositionsFutures {
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
+
+public struct BrokerReportRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var payload: BrokerReportRequest.OneOf_Payload? = nil
+
+  public var generateBrokerReportRequest: GenerateBrokerReportRequest {
+    get {
+      if case .generateBrokerReportRequest(let v)? = payload {return v}
+      return GenerateBrokerReportRequest()
+    }
+    set {payload = .generateBrokerReportRequest(newValue)}
+  }
+
+  public var getBrokerReportRequest: GetBrokerReportRequest {
+    get {
+      if case .getBrokerReportRequest(let v)? = payload {return v}
+      return GetBrokerReportRequest()
+    }
+    set {payload = .getBrokerReportRequest(newValue)}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum OneOf_Payload: Equatable {
+    case generateBrokerReportRequest(GenerateBrokerReportRequest)
+    case getBrokerReportRequest(GetBrokerReportRequest)
+
+  #if !swift(>=4.1)
+    public static func ==(lhs: BrokerReportRequest.OneOf_Payload, rhs: BrokerReportRequest.OneOf_Payload) -> Bool {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch (lhs, rhs) {
+      case (.generateBrokerReportRequest, .generateBrokerReportRequest): return {
+        guard case .generateBrokerReportRequest(let l) = lhs, case .generateBrokerReportRequest(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.getBrokerReportRequest, .getBrokerReportRequest): return {
+        guard case .getBrokerReportRequest(let l) = lhs, case .getBrokerReportRequest(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  public init() {}
+}
+
+public struct BrokerReportResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var payload: BrokerReportResponse.OneOf_Payload? = nil
+
+  public var generateBrokerReportResponse: GenerateBrokerReportResponse {
+    get {
+      if case .generateBrokerReportResponse(let v)? = payload {return v}
+      return GenerateBrokerReportResponse()
+    }
+    set {payload = .generateBrokerReportResponse(newValue)}
+  }
+
+  public var getBrokerReportResponse: GetBrokerReportResponse {
+    get {
+      if case .getBrokerReportResponse(let v)? = payload {return v}
+      return GetBrokerReportResponse()
+    }
+    set {payload = .getBrokerReportResponse(newValue)}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum OneOf_Payload: Equatable {
+    case generateBrokerReportResponse(GenerateBrokerReportResponse)
+    case getBrokerReportResponse(GetBrokerReportResponse)
+
+  #if !swift(>=4.1)
+    public static func ==(lhs: BrokerReportResponse.OneOf_Payload, rhs: BrokerReportResponse.OneOf_Payload) -> Bool {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch (lhs, rhs) {
+      case (.generateBrokerReportResponse, .generateBrokerReportResponse): return {
+        guard case .generateBrokerReportResponse(let l) = lhs, case .generateBrokerReportResponse(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.getBrokerReportResponse, .getBrokerReportResponse): return {
+        guard case .getBrokerReportResponse(let l) = lhs, case .getBrokerReportResponse(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  public init() {}
+}
+
+public struct GenerateBrokerReportRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///Идентификатор счёта клиента
+  public var accountID: String = String()
+
+  ///Начало периода в часовом поясе UTC.
+  public var from: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _from ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_from = newValue}
+  }
+  /// Returns true if `from` has been explicitly set.
+  public var hasFrom: Bool {return self._from != nil}
+  /// Clears the value of `from`. Subsequent reads from it will return its default value.
+  public mutating func clearFrom() {self._from = nil}
+
+  ///Окончание периода в часовом поясе UTC.
+  public var to: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _to ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_to = newValue}
+  }
+  /// Returns true if `to` has been explicitly set.
+  public var hasTo: Bool {return self._to != nil}
+  /// Clears the value of `to`. Subsequent reads from it will return its default value.
+  public mutating func clearTo() {self._to = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _from: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _to: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct GenerateBrokerReportResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///Идентификатор задачи формирования брокерского отчёта
+  public var taskID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct GetBrokerReportRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///Идентификатор задачи формирования брокерского отчёта
+  public var taskID: String = String()
+
+  ///Номер страницы отчета (начинается с 1), значение по умолчанию: 0
+  public var page: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct GetBrokerReportResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var brokerReport: [BrokerReport] = []
+
+  ///Количество записей в отчете
+  public var itemsCount: Int32 = 0
+
+  ///Количество страниц с данными отчета (начинается с 0)
+  public var pagesCount: Int32 = 0
+
+  ///Текущая страница (начинается с 0)
+  public var page: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct BrokerReport {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///Номер сделки
+  public var tradeID: String {
+    get {return _storage._tradeID}
+    set {_uniqueStorage()._tradeID = newValue}
+  }
+
+  ///Номер поручения
+  public var orderID: String {
+    get {return _storage._orderID}
+    set {_uniqueStorage()._orderID = newValue}
+  }
+
+  ///Figi-идентификатор инструмента
+  public var figi: String {
+    get {return _storage._figi}
+    set {_uniqueStorage()._figi = newValue}
+  }
+
+  ///Признак исполнения
+  public var executeSign: String {
+    get {return _storage._executeSign}
+    set {_uniqueStorage()._executeSign = newValue}
+  }
+
+  ///Дата и время заключения в часовом поясе UTC.
+  public var tradeDatetime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._tradeDatetime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._tradeDatetime = newValue}
+  }
+  /// Returns true if `tradeDatetime` has been explicitly set.
+  public var hasTradeDatetime: Bool {return _storage._tradeDatetime != nil}
+  /// Clears the value of `tradeDatetime`. Subsequent reads from it will return its default value.
+  public mutating func clearTradeDatetime() {_uniqueStorage()._tradeDatetime = nil}
+
+  ///Торговая площадка
+  public var exchange: String {
+    get {return _storage._exchange}
+    set {_uniqueStorage()._exchange = newValue}
+  }
+
+  ///Режим торгов
+  public var classCode: String {
+    get {return _storage._classCode}
+    set {_uniqueStorage()._classCode = newValue}
+  }
+
+  ///Вид сделки
+  public var direction: String {
+    get {return _storage._direction}
+    set {_uniqueStorage()._direction = newValue}
+  }
+
+  ///Сокращённое наименование актива
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
+
+  ///Код актива
+  public var ticker: String {
+    get {return _storage._ticker}
+    set {_uniqueStorage()._ticker = newValue}
+  }
+
+  ///Цена за единицу
+  public var price: MoneyValue {
+    get {return _storage._price ?? MoneyValue()}
+    set {_uniqueStorage()._price = newValue}
+  }
+  /// Returns true if `price` has been explicitly set.
+  public var hasPrice: Bool {return _storage._price != nil}
+  /// Clears the value of `price`. Subsequent reads from it will return its default value.
+  public mutating func clearPrice() {_uniqueStorage()._price = nil}
+
+  ///Количество
+  public var quantity: Int64 {
+    get {return _storage._quantity}
+    set {_uniqueStorage()._quantity = newValue}
+  }
+
+  ///Сумма (без НКД)
+  public var orderAmount: MoneyValue {
+    get {return _storage._orderAmount ?? MoneyValue()}
+    set {_uniqueStorage()._orderAmount = newValue}
+  }
+  /// Returns true if `orderAmount` has been explicitly set.
+  public var hasOrderAmount: Bool {return _storage._orderAmount != nil}
+  /// Clears the value of `orderAmount`. Subsequent reads from it will return its default value.
+  public mutating func clearOrderAmount() {_uniqueStorage()._orderAmount = nil}
+
+  ///НКД
+  public var aciValue: Quotation {
+    get {return _storage._aciValue ?? Quotation()}
+    set {_uniqueStorage()._aciValue = newValue}
+  }
+  /// Returns true if `aciValue` has been explicitly set.
+  public var hasAciValue: Bool {return _storage._aciValue != nil}
+  /// Clears the value of `aciValue`. Subsequent reads from it will return its default value.
+  public mutating func clearAciValue() {_uniqueStorage()._aciValue = nil}
+
+  ///Сумма сделки
+  public var totalOrderAmount: MoneyValue {
+    get {return _storage._totalOrderAmount ?? MoneyValue()}
+    set {_uniqueStorage()._totalOrderAmount = newValue}
+  }
+  /// Returns true if `totalOrderAmount` has been explicitly set.
+  public var hasTotalOrderAmount: Bool {return _storage._totalOrderAmount != nil}
+  /// Clears the value of `totalOrderAmount`. Subsequent reads from it will return its default value.
+  public mutating func clearTotalOrderAmount() {_uniqueStorage()._totalOrderAmount = nil}
+
+  ///Комиссия брокера
+  public var brokerCommission: MoneyValue {
+    get {return _storage._brokerCommission ?? MoneyValue()}
+    set {_uniqueStorage()._brokerCommission = newValue}
+  }
+  /// Returns true if `brokerCommission` has been explicitly set.
+  public var hasBrokerCommission: Bool {return _storage._brokerCommission != nil}
+  /// Clears the value of `brokerCommission`. Subsequent reads from it will return its default value.
+  public mutating func clearBrokerCommission() {_uniqueStorage()._brokerCommission = nil}
+
+  ///Комиссия биржи
+  public var exchangeCommission: MoneyValue {
+    get {return _storage._exchangeCommission ?? MoneyValue()}
+    set {_uniqueStorage()._exchangeCommission = newValue}
+  }
+  /// Returns true if `exchangeCommission` has been explicitly set.
+  public var hasExchangeCommission: Bool {return _storage._exchangeCommission != nil}
+  /// Clears the value of `exchangeCommission`. Subsequent reads from it will return its default value.
+  public mutating func clearExchangeCommission() {_uniqueStorage()._exchangeCommission = nil}
+
+  ///Комиссия клир. центра
+  public var exchangeClearingCommission: MoneyValue {
+    get {return _storage._exchangeClearingCommission ?? MoneyValue()}
+    set {_uniqueStorage()._exchangeClearingCommission = newValue}
+  }
+  /// Returns true if `exchangeClearingCommission` has been explicitly set.
+  public var hasExchangeClearingCommission: Bool {return _storage._exchangeClearingCommission != nil}
+  /// Clears the value of `exchangeClearingCommission`. Subsequent reads from it will return its default value.
+  public mutating func clearExchangeClearingCommission() {_uniqueStorage()._exchangeClearingCommission = nil}
+
+  ///Ставка РЕПО (%)
+  public var repoRate: Quotation {
+    get {return _storage._repoRate ?? Quotation()}
+    set {_uniqueStorage()._repoRate = newValue}
+  }
+  /// Returns true if `repoRate` has been explicitly set.
+  public var hasRepoRate: Bool {return _storage._repoRate != nil}
+  /// Clears the value of `repoRate`. Subsequent reads from it will return its default value.
+  public mutating func clearRepoRate() {_uniqueStorage()._repoRate = nil}
+
+  ///Контрагент/Брокер
+  public var party: String {
+    get {return _storage._party}
+    set {_uniqueStorage()._party = newValue}
+  }
+
+  ///Дата расчётов в часовом поясе UTC.
+  public var clearValueDate_p: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._clearValueDate_p ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._clearValueDate_p = newValue}
+  }
+  /// Returns true if `clearValueDate_p` has been explicitly set.
+  public var hasClearValueDate_p: Bool {return _storage._clearValueDate_p != nil}
+  /// Clears the value of `clearValueDate_p`. Subsequent reads from it will return its default value.
+  public mutating func clearClearValueDate_p() {_uniqueStorage()._clearValueDate_p = nil}
+
+  ///Дата поставки в часовом поясе UTC.
+  public var secValueDate: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._secValueDate ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._secValueDate = newValue}
+  }
+  /// Returns true if `secValueDate` has been explicitly set.
+  public var hasSecValueDate: Bool {return _storage._secValueDate != nil}
+  /// Clears the value of `secValueDate`. Subsequent reads from it will return its default value.
+  public mutating func clearSecValueDate() {_uniqueStorage()._secValueDate = nil}
+
+  ///Статус брокера
+  public var brokerStatus: String {
+    get {return _storage._brokerStatus}
+    set {_uniqueStorage()._brokerStatus = newValue}
+  }
+
+  ///Тип дог.
+  public var separateAgreementType: String {
+    get {return _storage._separateAgreementType}
+    set {_uniqueStorage()._separateAgreementType = newValue}
+  }
+
+  ///Номер дог.
+  public var separateAgreementNumber: String {
+    get {return _storage._separateAgreementNumber}
+    set {_uniqueStorage()._separateAgreementNumber = newValue}
+  }
+
+  ///Дата дог.
+  public var separateAgreementDate: String {
+    get {return _storage._separateAgreementDate}
+    set {_uniqueStorage()._separateAgreementDate = newValue}
+  }
+
+  ///Тип расчёта по сделке
+  public var deliveryType: String {
+    get {return _storage._deliveryType}
+    set {_uniqueStorage()._deliveryType = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1460,6 +1888,8 @@ extension PortfolioPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     6: .standard(proto: "current_nkd"),
     7: .standard(proto: "average_position_price_pt"),
     8: .standard(proto: "current_price"),
+    9: .standard(proto: "average_position_price_fifo"),
+    10: .standard(proto: "quantity_lots"),
   ]
 
   fileprivate class _StorageClass {
@@ -1471,6 +1901,8 @@ extension PortfolioPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     var _currentNkd: MoneyValue? = nil
     var _averagePositionPricePt: Quotation? = nil
     var _currentPrice: MoneyValue? = nil
+    var _averagePositionPriceFifo: MoneyValue? = nil
+    var _quantityLots: Quotation? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1485,6 +1917,8 @@ extension PortfolioPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       _currentNkd = source._currentNkd
       _averagePositionPricePt = source._averagePositionPricePt
       _currentPrice = source._currentPrice
+      _averagePositionPriceFifo = source._averagePositionPriceFifo
+      _quantityLots = source._quantityLots
     }
   }
 
@@ -1511,6 +1945,8 @@ extension PortfolioPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
         case 6: try { try decoder.decodeSingularMessageField(value: &_storage._currentNkd) }()
         case 7: try { try decoder.decodeSingularMessageField(value: &_storage._averagePositionPricePt) }()
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._currentPrice) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._averagePositionPriceFifo) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._quantityLots) }()
         default: break
         }
       }
@@ -1547,6 +1983,12 @@ extension PortfolioPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       try { if let v = _storage._currentPrice {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
       } }()
+      try { if let v = _storage._averagePositionPriceFifo {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      } }()
+      try { if let v = _storage._quantityLots {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1564,6 +2006,8 @@ extension PortfolioPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
         if _storage._currentNkd != rhs_storage._currentNkd {return false}
         if _storage._averagePositionPricePt != rhs_storage._averagePositionPricePt {return false}
         if _storage._currentPrice != rhs_storage._currentPrice {return false}
+        if _storage._averagePositionPriceFifo != rhs_storage._averagePositionPriceFifo {return false}
+        if _storage._quantityLots != rhs_storage._quantityLots {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -1656,6 +2100,590 @@ extension PositionsFutures: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs.figi != rhs.figi {return false}
     if lhs.blocked != rhs.blocked {return false}
     if lhs.balance != rhs.balance {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension BrokerReportRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BrokerReportRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "generate_broker_report_request"),
+    2: .standard(proto: "get_broker_report_request"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: GenerateBrokerReportRequest?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .generateBrokerReportRequest(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .generateBrokerReportRequest(v)
+        }
+      }()
+      case 2: try {
+        var v: GetBrokerReportRequest?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .getBrokerReportRequest(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .getBrokerReportRequest(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.payload {
+    case .generateBrokerReportRequest?: try {
+      guard case .generateBrokerReportRequest(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .getBrokerReportRequest?: try {
+      guard case .getBrokerReportRequest(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: BrokerReportRequest, rhs: BrokerReportRequest) -> Bool {
+    if lhs.payload != rhs.payload {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension BrokerReportResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BrokerReportResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "generate_broker_report_response"),
+    2: .standard(proto: "get_broker_report_response"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try {
+        var v: GenerateBrokerReportResponse?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .generateBrokerReportResponse(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .generateBrokerReportResponse(v)
+        }
+      }()
+      case 2: try {
+        var v: GetBrokerReportResponse?
+        var hadOneofValue = false
+        if let current = self.payload {
+          hadOneofValue = true
+          if case .getBrokerReportResponse(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.payload = .getBrokerReportResponse(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.payload {
+    case .generateBrokerReportResponse?: try {
+      guard case .generateBrokerReportResponse(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .getBrokerReportResponse?: try {
+      guard case .getBrokerReportResponse(let v)? = self.payload else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: BrokerReportResponse, rhs: BrokerReportResponse) -> Bool {
+    if lhs.payload != rhs.payload {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GenerateBrokerReportRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GenerateBrokerReportRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "account_id"),
+    2: .same(proto: "from"),
+    3: .same(proto: "to"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.accountID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._from) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._to) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.accountID.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountID, fieldNumber: 1)
+    }
+    try { if let v = self._from {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._to {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GenerateBrokerReportRequest, rhs: GenerateBrokerReportRequest) -> Bool {
+    if lhs.accountID != rhs.accountID {return false}
+    if lhs._from != rhs._from {return false}
+    if lhs._to != rhs._to {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GenerateBrokerReportResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GenerateBrokerReportResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "task_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.taskID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.taskID.isEmpty {
+      try visitor.visitSingularStringField(value: self.taskID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GenerateBrokerReportResponse, rhs: GenerateBrokerReportResponse) -> Bool {
+    if lhs.taskID != rhs.taskID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GetBrokerReportRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetBrokerReportRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "task_id"),
+    2: .same(proto: "page"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.taskID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.page) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.taskID.isEmpty {
+      try visitor.visitSingularStringField(value: self.taskID, fieldNumber: 1)
+    }
+    if self.page != 0 {
+      try visitor.visitSingularInt32Field(value: self.page, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GetBrokerReportRequest, rhs: GetBrokerReportRequest) -> Bool {
+    if lhs.taskID != rhs.taskID {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GetBrokerReportResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetBrokerReportResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "broker_report"),
+    2: .same(proto: "itemsCount"),
+    3: .same(proto: "pagesCount"),
+    4: .same(proto: "page"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.brokerReport) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.itemsCount) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.pagesCount) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.page) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.brokerReport.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.brokerReport, fieldNumber: 1)
+    }
+    if self.itemsCount != 0 {
+      try visitor.visitSingularInt32Field(value: self.itemsCount, fieldNumber: 2)
+    }
+    if self.pagesCount != 0 {
+      try visitor.visitSingularInt32Field(value: self.pagesCount, fieldNumber: 3)
+    }
+    if self.page != 0 {
+      try visitor.visitSingularInt32Field(value: self.page, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GetBrokerReportResponse, rhs: GetBrokerReportResponse) -> Bool {
+    if lhs.brokerReport != rhs.brokerReport {return false}
+    if lhs.itemsCount != rhs.itemsCount {return false}
+    if lhs.pagesCount != rhs.pagesCount {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension BrokerReport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BrokerReport"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "trade_id"),
+    2: .standard(proto: "order_id"),
+    3: .same(proto: "figi"),
+    4: .standard(proto: "execute_sign"),
+    5: .standard(proto: "trade_datetime"),
+    6: .same(proto: "exchange"),
+    7: .standard(proto: "class_code"),
+    8: .same(proto: "direction"),
+    9: .same(proto: "name"),
+    10: .same(proto: "ticker"),
+    11: .same(proto: "price"),
+    12: .same(proto: "quantity"),
+    13: .standard(proto: "order_amount"),
+    14: .standard(proto: "aci_value"),
+    15: .standard(proto: "total_order_amount"),
+    16: .standard(proto: "broker_commission"),
+    17: .standard(proto: "exchange_commission"),
+    18: .standard(proto: "exchange_clearing_commission"),
+    19: .standard(proto: "repo_rate"),
+    20: .same(proto: "party"),
+    21: .standard(proto: "clear_value_date"),
+    22: .standard(proto: "sec_value_date"),
+    23: .standard(proto: "broker_status"),
+    24: .standard(proto: "separate_agreement_type"),
+    25: .standard(proto: "separate_agreement_number"),
+    26: .standard(proto: "separate_agreement_date"),
+    27: .standard(proto: "delivery_type"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _tradeID: String = String()
+    var _orderID: String = String()
+    var _figi: String = String()
+    var _executeSign: String = String()
+    var _tradeDatetime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _exchange: String = String()
+    var _classCode: String = String()
+    var _direction: String = String()
+    var _name: String = String()
+    var _ticker: String = String()
+    var _price: MoneyValue? = nil
+    var _quantity: Int64 = 0
+    var _orderAmount: MoneyValue? = nil
+    var _aciValue: Quotation? = nil
+    var _totalOrderAmount: MoneyValue? = nil
+    var _brokerCommission: MoneyValue? = nil
+    var _exchangeCommission: MoneyValue? = nil
+    var _exchangeClearingCommission: MoneyValue? = nil
+    var _repoRate: Quotation? = nil
+    var _party: String = String()
+    var _clearValueDate_p: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _secValueDate: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _brokerStatus: String = String()
+    var _separateAgreementType: String = String()
+    var _separateAgreementNumber: String = String()
+    var _separateAgreementDate: String = String()
+    var _deliveryType: String = String()
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _tradeID = source._tradeID
+      _orderID = source._orderID
+      _figi = source._figi
+      _executeSign = source._executeSign
+      _tradeDatetime = source._tradeDatetime
+      _exchange = source._exchange
+      _classCode = source._classCode
+      _direction = source._direction
+      _name = source._name
+      _ticker = source._ticker
+      _price = source._price
+      _quantity = source._quantity
+      _orderAmount = source._orderAmount
+      _aciValue = source._aciValue
+      _totalOrderAmount = source._totalOrderAmount
+      _brokerCommission = source._brokerCommission
+      _exchangeCommission = source._exchangeCommission
+      _exchangeClearingCommission = source._exchangeClearingCommission
+      _repoRate = source._repoRate
+      _party = source._party
+      _clearValueDate_p = source._clearValueDate_p
+      _secValueDate = source._secValueDate
+      _brokerStatus = source._brokerStatus
+      _separateAgreementType = source._separateAgreementType
+      _separateAgreementNumber = source._separateAgreementNumber
+      _separateAgreementDate = source._separateAgreementDate
+      _deliveryType = source._deliveryType
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._tradeID) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._orderID) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._figi) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._executeSign) }()
+        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._tradeDatetime) }()
+        case 6: try { try decoder.decodeSingularStringField(value: &_storage._exchange) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._classCode) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._direction) }()
+        case 9: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 10: try { try decoder.decodeSingularStringField(value: &_storage._ticker) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._price) }()
+        case 12: try { try decoder.decodeSingularInt64Field(value: &_storage._quantity) }()
+        case 13: try { try decoder.decodeSingularMessageField(value: &_storage._orderAmount) }()
+        case 14: try { try decoder.decodeSingularMessageField(value: &_storage._aciValue) }()
+        case 15: try { try decoder.decodeSingularMessageField(value: &_storage._totalOrderAmount) }()
+        case 16: try { try decoder.decodeSingularMessageField(value: &_storage._brokerCommission) }()
+        case 17: try { try decoder.decodeSingularMessageField(value: &_storage._exchangeCommission) }()
+        case 18: try { try decoder.decodeSingularMessageField(value: &_storage._exchangeClearingCommission) }()
+        case 19: try { try decoder.decodeSingularMessageField(value: &_storage._repoRate) }()
+        case 20: try { try decoder.decodeSingularStringField(value: &_storage._party) }()
+        case 21: try { try decoder.decodeSingularMessageField(value: &_storage._clearValueDate_p) }()
+        case 22: try { try decoder.decodeSingularMessageField(value: &_storage._secValueDate) }()
+        case 23: try { try decoder.decodeSingularStringField(value: &_storage._brokerStatus) }()
+        case 24: try { try decoder.decodeSingularStringField(value: &_storage._separateAgreementType) }()
+        case 25: try { try decoder.decodeSingularStringField(value: &_storage._separateAgreementNumber) }()
+        case 26: try { try decoder.decodeSingularStringField(value: &_storage._separateAgreementDate) }()
+        case 27: try { try decoder.decodeSingularStringField(value: &_storage._deliveryType) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._tradeID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._tradeID, fieldNumber: 1)
+      }
+      if !_storage._orderID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._orderID, fieldNumber: 2)
+      }
+      if !_storage._figi.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._figi, fieldNumber: 3)
+      }
+      if !_storage._executeSign.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._executeSign, fieldNumber: 4)
+      }
+      try { if let v = _storage._tradeDatetime {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      } }()
+      if !_storage._exchange.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._exchange, fieldNumber: 6)
+      }
+      if !_storage._classCode.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._classCode, fieldNumber: 7)
+      }
+      if !_storage._direction.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._direction, fieldNumber: 8)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 9)
+      }
+      if !_storage._ticker.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ticker, fieldNumber: 10)
+      }
+      try { if let v = _storage._price {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      } }()
+      if _storage._quantity != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._quantity, fieldNumber: 12)
+      }
+      try { if let v = _storage._orderAmount {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      } }()
+      try { if let v = _storage._aciValue {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
+      } }()
+      try { if let v = _storage._totalOrderAmount {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+      } }()
+      try { if let v = _storage._brokerCommission {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+      } }()
+      try { if let v = _storage._exchangeCommission {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
+      } }()
+      try { if let v = _storage._exchangeClearingCommission {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
+      } }()
+      try { if let v = _storage._repoRate {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
+      } }()
+      if !_storage._party.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._party, fieldNumber: 20)
+      }
+      try { if let v = _storage._clearValueDate_p {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 21)
+      } }()
+      try { if let v = _storage._secValueDate {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 22)
+      } }()
+      if !_storage._brokerStatus.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._brokerStatus, fieldNumber: 23)
+      }
+      if !_storage._separateAgreementType.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._separateAgreementType, fieldNumber: 24)
+      }
+      if !_storage._separateAgreementNumber.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._separateAgreementNumber, fieldNumber: 25)
+      }
+      if !_storage._separateAgreementDate.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._separateAgreementDate, fieldNumber: 26)
+      }
+      if !_storage._deliveryType.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._deliveryType, fieldNumber: 27)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: BrokerReport, rhs: BrokerReport) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._tradeID != rhs_storage._tradeID {return false}
+        if _storage._orderID != rhs_storage._orderID {return false}
+        if _storage._figi != rhs_storage._figi {return false}
+        if _storage._executeSign != rhs_storage._executeSign {return false}
+        if _storage._tradeDatetime != rhs_storage._tradeDatetime {return false}
+        if _storage._exchange != rhs_storage._exchange {return false}
+        if _storage._classCode != rhs_storage._classCode {return false}
+        if _storage._direction != rhs_storage._direction {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._ticker != rhs_storage._ticker {return false}
+        if _storage._price != rhs_storage._price {return false}
+        if _storage._quantity != rhs_storage._quantity {return false}
+        if _storage._orderAmount != rhs_storage._orderAmount {return false}
+        if _storage._aciValue != rhs_storage._aciValue {return false}
+        if _storage._totalOrderAmount != rhs_storage._totalOrderAmount {return false}
+        if _storage._brokerCommission != rhs_storage._brokerCommission {return false}
+        if _storage._exchangeCommission != rhs_storage._exchangeCommission {return false}
+        if _storage._exchangeClearingCommission != rhs_storage._exchangeClearingCommission {return false}
+        if _storage._repoRate != rhs_storage._repoRate {return false}
+        if _storage._party != rhs_storage._party {return false}
+        if _storage._clearValueDate_p != rhs_storage._clearValueDate_p {return false}
+        if _storage._secValueDate != rhs_storage._secValueDate {return false}
+        if _storage._brokerStatus != rhs_storage._brokerStatus {return false}
+        if _storage._separateAgreementType != rhs_storage._separateAgreementType {return false}
+        if _storage._separateAgreementNumber != rhs_storage._separateAgreementNumber {return false}
+        if _storage._separateAgreementDate != rhs_storage._separateAgreementDate {return false}
+        if _storage._deliveryType != rhs_storage._deliveryType {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

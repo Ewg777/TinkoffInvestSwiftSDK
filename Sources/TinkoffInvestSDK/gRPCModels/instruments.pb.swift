@@ -353,7 +353,7 @@ public struct InstrumentRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Тип идентификатора инструмента. Возможные значения: figi, ticker, isin. Подробнее об идентификации инструментов: [Идентификация инструментов](https://tinkoff.github.io/investAPI/faq_identification/)
+  /// Тип идентификатора инструмента. Возможные значения: figi, ticker. Подробнее об идентификации инструментов: [Идентификация инструментов](https://tinkoff.github.io/investAPI/faq_identification/)
   public var idType: InstrumentIdType = .instrumentIDUnspecified
 
   /// Идентификатор class_code. Обязателен при id_type = ticker.
@@ -1455,7 +1455,7 @@ public struct Future {
     set {_uniqueStorage()._sector = newValue}
   }
 
-  ///Дата истечения срока.
+  ///Дата истечения срока в часов поясе UTC.
   public var expirationDate: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._expirationDate ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._expirationDate = newValue}
@@ -2192,7 +2192,7 @@ public struct Dividend {
   /// Clears the value of `dividendNet`. Subsequent reads from it will return its default value.
   public mutating func clearDividendNet() {_uniqueStorage()._dividendNet = nil}
 
-  ///Дата фактических выплат.
+  ///Дата фактических выплат в часовом поясе UTC.
   public var paymentDate: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._paymentDate ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._paymentDate = newValue}
@@ -2202,7 +2202,7 @@ public struct Dividend {
   /// Clears the value of `paymentDate`. Subsequent reads from it will return its default value.
   public mutating func clearPaymentDate() {_uniqueStorage()._paymentDate = nil}
 
-  ///Дата объявления дивидендов.
+  ///Дата объявления дивидендов в часовом поясе UTC.
   public var declaredDate: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._declaredDate ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._declaredDate = newValue}
@@ -2212,7 +2212,7 @@ public struct Dividend {
   /// Clears the value of `declaredDate`. Subsequent reads from it will return its default value.
   public mutating func clearDeclaredDate() {_uniqueStorage()._declaredDate = nil}
 
-  ///Последний день (включительно) покупки для получения выплаты.
+  ///Последний день (включительно) покупки для получения выплаты в часовом поясе UTC.
   public var lastBuyDate: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._lastBuyDate ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._lastBuyDate = newValue}
@@ -2228,7 +2228,7 @@ public struct Dividend {
     set {_uniqueStorage()._dividendType = newValue}
   }
 
-  ///Дата фиксации реестра
+  ///Дата фиксации реестра в часовом поясе UTC.
   public var recordDate: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._recordDate ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._recordDate = newValue}
@@ -2264,7 +2264,7 @@ public struct Dividend {
   /// Clears the value of `yieldValue`. Subsequent reads from it will return its default value.
   public mutating func clearYieldValue() {_uniqueStorage()._yieldValue = nil}
 
-  ///Дата и время создания записи.
+  ///Дата и время создания записи в часовом поясе UTC.
   public var createdAt: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._createdAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._createdAt = newValue}

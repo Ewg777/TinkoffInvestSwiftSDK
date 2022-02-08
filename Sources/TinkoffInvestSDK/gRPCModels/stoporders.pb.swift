@@ -307,7 +307,7 @@ public struct CancelStopOrderResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  ///Время отмены заявки в часовом поясе UTC
+  ///Время отмены заявки в часовом поясе UTC.
   public var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_time = newValue}
@@ -366,7 +366,7 @@ public struct StopOrder {
     set {_uniqueStorage()._orderType = newValue}
   }
 
-  ///Дата и время выставления заявки в часовом поясе UTC
+  ///Дата и время выставления заявки в часовом поясе UTC.
   public var createDate: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._createDate ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._createDate = newValue}
@@ -376,7 +376,7 @@ public struct StopOrder {
   /// Clears the value of `createDate`. Subsequent reads from it will return its default value.
   public mutating func clearCreateDate() {_uniqueStorage()._createDate = nil}
 
-  ///Дата и время конвертации стоп-заявки в биржевую в часовом поясе UTC
+  ///Дата и время конвертации стоп-заявки в биржевую в часовом поясе UTC.
   public var activationDateTime: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._activationDateTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._activationDateTime = newValue}
@@ -386,7 +386,7 @@ public struct StopOrder {
   /// Clears the value of `activationDateTime`. Subsequent reads from it will return its default value.
   public mutating func clearActivationDateTime() {_uniqueStorage()._activationDateTime = nil}
 
-  ///Дата и время снятия заявки в часовом поясе UTC
+  ///Дата и время снятия заявки в часовом поясе UTC.
   public var expirationTime: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _storage._expirationTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_uniqueStorage()._expirationTime = newValue}

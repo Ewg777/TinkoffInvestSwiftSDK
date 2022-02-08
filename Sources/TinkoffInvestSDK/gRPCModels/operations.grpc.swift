@@ -53,6 +53,11 @@ public protocol OperationsServiceClientProtocol: GRPCClient {
     _ request: WithdrawLimitsRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<WithdrawLimitsRequest, WithdrawLimitsResponse>
+
+  func getBrokerReport(
+    _ request: BrokerReportRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<BrokerReportRequest, BrokerReportResponse>
 }
 
 extension OperationsServiceClientProtocol {
@@ -131,6 +136,24 @@ extension OperationsServiceClientProtocol {
       interceptors: self.interceptors?.makeGetWithdrawLimitsInterceptors() ?? []
     )
   }
+
+  /// Unary call to GetBrokerReport
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetBrokerReport.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func getBrokerReport(
+    _ request: BrokerReportRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<BrokerReportRequest, BrokerReportResponse> {
+    return self.makeUnaryCall(
+      path: "/tinkoff.public.invest.api.contract.v1.OperationsService/GetBrokerReport",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetBrokerReportInterceptors() ?? []
+    )
+  }
 }
 
 public protocol OperationsServiceClientInterceptorFactoryProtocol {
@@ -146,6 +169,9 @@ public protocol OperationsServiceClientInterceptorFactoryProtocol {
 
   /// - Returns: Interceptors to use when invoking 'getWithdrawLimits'.
   func makeGetWithdrawLimitsInterceptors() -> [ClientInterceptor<WithdrawLimitsRequest, WithdrawLimitsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getBrokerReport'.
+  func makeGetBrokerReportInterceptors() -> [ClientInterceptor<BrokerReportRequest, BrokerReportResponse>]
 }
 
 public final class OperationsServiceClient: OperationsServiceClientProtocol {
@@ -189,6 +215,8 @@ public protocol OperationsServiceProvider: CallHandlerProvider {
 
   ///Метод получения доступного остатка для вывода средств.
   func getWithdrawLimits(request: WithdrawLimitsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<WithdrawLimitsResponse>
+
+  func getBrokerReport(request: BrokerReportRequest, context: StatusOnlyCallContext) -> EventLoopFuture<BrokerReportResponse>
 }
 
 extension OperationsServiceProvider {
@@ -237,6 +265,15 @@ extension OperationsServiceProvider {
         userFunction: self.getWithdrawLimits(request:context:)
       )
 
+    case "GetBrokerReport":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<BrokerReportRequest>(),
+        responseSerializer: ProtobufSerializer<BrokerReportResponse>(),
+        interceptors: self.interceptors?.makeGetBrokerReportInterceptors() ?? [],
+        userFunction: self.getBrokerReport(request:context:)
+      )
+
     default:
       return nil
     }
@@ -260,4 +297,8 @@ public protocol OperationsServiceServerInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when handling 'getWithdrawLimits'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeGetWithdrawLimitsInterceptors() -> [ServerInterceptor<WithdrawLimitsRequest, WithdrawLimitsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getBrokerReport'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetBrokerReportInterceptors() -> [ServerInterceptor<BrokerReportRequest, BrokerReportResponse>]
 }
